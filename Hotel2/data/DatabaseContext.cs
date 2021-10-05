@@ -37,24 +37,24 @@ namespace Hotel2.data
                new Hotel
                {
                    Id = 1,
-                   Name= "USA No 1",
-                   CountryId=1,
+                   CountryId = 1,
+                   Name = "USA No 1",
                    Address = "Cherry Moon",
                    Rating = 1
                },
                 new Hotel
                 {
                     Id = 2,
-                    Name = "ESP No 1",
                     CountryId = 2,
+                    Name = "ESP No 1",
                     Address = "Cherry Luna",
                     Rating = 1
                 },
                  new Hotel
                  {
                      Id = 3,
-                     Name = "CH No 1",
                      CountryId = 3,
+                     Name = "CH No 1",
                      Address = "Cherry Mond",
                      Rating = 1
                  }

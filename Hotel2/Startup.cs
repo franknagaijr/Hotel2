@@ -1,3 +1,4 @@
+using Hotel2.Configurations;
 using Hotel2.data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -44,6 +45,8 @@ namespace Hotel2
                     .AllowAnyHeader();
                 });
             });
+
+            services.AddAutoMapper(typeof(MapperInitializer));
 
             services.AddSwaggerGen(c =>
             {
