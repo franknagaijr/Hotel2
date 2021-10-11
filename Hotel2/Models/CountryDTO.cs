@@ -22,7 +22,7 @@ namespace Hotel2.Models
     {
         public int Id { get; set; }
 
-        public virtual IList<HotelDTO> Hotels { get; set;  }
+        public IList<HotelDTO> Hotels { get; set;  }
         
     }
 }
