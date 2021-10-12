@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Hotel2.data;
 using Hotel2.IRepository;
 using Hotel2.Models;
 using Microsoft.AspNetCore.Http;
@@ -44,7 +45,7 @@ namespace Hotel2.Controllers
             }
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("{id:int}", Name = "GetCountry")]
         public async Task<IActionResult> GetCountry(int id)
         {
             try
@@ -57,6 +58,35 @@ namespace Hotel2.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"Something is amiss: {nameof(GetCountry)}");
+                return StatusCode(500, "Internal Server Error. Please try back later.");
+            }
+        }
+
+        [HttpPost]
+
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+
+        public async Task<IActionResult> CreateCountry([FromBody] CreateCountryDTO countryDTO)
+        {
+            if (!ModelState.IsValid)
+            {
+                _logger.LogError($"Invalid POST attempt in {nameof(CreateCountry)}");
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                var country = _mapper.Map<Country>(countryDTO);
+                await _unitOfWork.Countries.Insert(country);
+                await _unitOfWork.Save();
+
+                return CreatedAtRoute("GetCountry", new { id = country.Id }, country);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Something is amiss: {nameof(CreateCountry)}");
                 return StatusCode(500, "Internal Server Error. Please try back later.");
             }
         }
